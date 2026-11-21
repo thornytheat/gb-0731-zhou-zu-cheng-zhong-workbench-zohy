@@ -38,10 +38,16 @@ RULE_PARAMETERS = {
 class Settings:
     source_dir: Path
     db_file: Path
+    archive_db_file: Path
+    cold_root: Path
 
     @classmethod
     def from_env(cls):
+        db_file = Path(os.getenv("WEIGH_DB", ROOT / "var/weigh.sqlite3"))
+        var_dir = db_file.parent
         return cls(
             Path(os.getenv("WEIGH_SAMPLE_DIR", ROOT / "sample_data")),
-            Path(os.getenv("WEIGH_DB", ROOT / "var/weigh.sqlite3")),
+            db_file,
+            Path(os.getenv("WEIGH_ARCHIVE_DB", var_dir / "archive.sqlite3")),
+            Path(os.getenv("WEIGH_COLD_ROOT", var_dir / "cold")),
         )

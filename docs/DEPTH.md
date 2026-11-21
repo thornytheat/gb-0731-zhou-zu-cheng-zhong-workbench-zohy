@@ -14,6 +14,7 @@
 | M5 偏载判级 | 核查左重、右重和临界偏载 | `GET /api/balance` | `app/modules/m5_balance/thresholds.py` `app/modules/m5_balance/service.py` | `tests/test_balance.py` |
 | M6 整车磅单勾稽 | 审核磅单版次、差额和待复秤原因 | `GET /api/reconcile` | `app/modules/m6_reconcile/tickets.py` `app/modules/m6_reconcile/service.py` | `tests/test_reconcile.py` |
 | M7 称重批次 | 提交样例、重算、追溯并下载复核包 | `POST /api/batches` | `app/modules/m7_batches/service.py` `app/modules/m7_batches/export.py` `app/store.py` | `tests/test_batches.py` |
+| M8 冷存归档 | 容量规划、封冻验封、验封清理、恢复核对与抽查回读 | `POST /api/archive/freeze` 等 | `app/modules/m8_archive/service.py` `app/modules/m8_archive/cold.py` `app/modules/m8_archive/slicing.py` | `tests/test_archive.py` |
 
 ## 陷阱登记
 
@@ -46,3 +47,11 @@
 
 - 输入限定配置目录内样例文件，按文件 1 MiB 和 4,000 条逻辑记录封顶。只支持带显式时区偏移和毫秒精度以内的采样时刻。
 - 轴距用档案内的车次恒速推算。缺轮、歧义或异常轴距产生现场复秤待办，现场结果需在外部系统处置。
+
+## M8 冷存安全不变量
+
+- 边界：批次为不可拆单元，整车轴组证据同进同出；保留单生效或含待复秤车次的批次禁止转冷。
+- 凭据：冷包逐文件 SHA-256 + Merkle 根封条（可选 HMAC），`SEALED` 标记只在自验通过后落盘。
+- 删库：`purge` 先验封后删在线记录，冷包不完整时在线库一行不丢；归档台账独立于在线库长期保留。
+- 恢复：按内容寻址 `run_id` 回灌，逐车次比对结论指纹；重复恢复只记事件，绝不生成第二个批次。
+- 回读：已清理批次从验封冷包流式取整车切片，不回灌、不改变状态。

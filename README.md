@@ -35,3 +35,21 @@ python -m uvicorn app.main:app --host 127.0.0.1 --port 18420
 ```sh
 docker compose exec -T app pytest -q
 ```
+
+## 冷存归档工作台（M8）
+
+审计季容量不足时按完整批次转冷，抽查车次随时从验封冷包回读原轴组证据。页面在 `/archive`，
+规则与接口见 [归档说明](docs/ARCHIVE.md)，端到端演练：
+
+```sh
+scripts/archive_demo.sh
+```
+
+边界与凭据要点：
+
+- 保留单生效、含待复秤车次或流水未核平的批次禁止转冷；`plan` 只推荐整批，不拆车次。
+- 冷包带逐文件 SHA-256 与 Merkle 根封条（可选 HMAC）；清理在线库前强制重新验封，失败则一行不删。
+- 恢复按原 `run_id` 回灌并逐车次核对结论指纹；重复恢复只追加事件，绝不生成第二个批次。
+
+CLI 入口：`python -m app.modules.m8_archive.cli --help`。环境变量 `WEIGH_ARCHIVE_DB`、
+`WEIGH_COLD_ROOT`、`WEIGH_COLD_HMAC` 控制台账、冷包根目录与封条密钥。

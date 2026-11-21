@@ -26,3 +26,10 @@
 批次键包括样例选择、四份文件的 SHA-256、规则版本和参数。结果用 Decimal 字符串、文本键和 ISO 时间序列化。提交事务同时写归档和触发日志。重跑重新计算并比对序列化内容，匹配后仅追加验证事件。源文件变化返回 `SOURCE_CHANGED`，已归档批次仍可查看并下载。
 
 复核包含运行清单、触发复核、轴组轮载和整车勾稽。`源文件行` 以实物 CSV 行号定位，多行备注保留起止行和原值。事件 `time` 为处理时间，`source_time` 是与事件关联的轴时刻。批次查询返回最近 50 条归档，日志用事件序号向后翻页。
+
+## 冷存归档（M8）
+
+- 冷存状态机：`FROZEN`（冷包封边、在线保留）→ `PURGED`（验封后清理在线库）→ `RESTORED`（回灌并逐车核对）。台账库由 `WEIGH_ARCHIVE_DB` 指定，独立于在线库，在线记录删除后凭据仍在。
+- 冷包 `cold/<run_id>/` 含 `package.zip`、`seal.json` 与 `SEALED` 标记。封条记录每个 ZIP 成员的 SHA-256、Merkle 根与可选 HMAC；`SEALED` 只在临时目录自验通过、原子落位后生成。
+- 转冷资格：无生效保留单（`audit_holds`）、`reconcile.ledger.review = 0` 且 `balanced = true`。批次为不可拆单元，`trains/<车次>.json` 汇集该车次全部轴组、轮级触发源行、标定证书与勾稽结论，切片自带 `slice_sha256`。
+- 恢复核对三层指纹：批次 `result_sha256`、封条 `train-summary.json`、台账留存摘要，三者逐车一致才允许写回；同 `run_id` 已存在时只记 `RESTORE_REUSED` 事件。

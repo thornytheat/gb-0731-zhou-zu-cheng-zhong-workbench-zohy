@@ -21,6 +21,11 @@ def workbench(request: Request):
     })
 
 
+@router.get("/archive", response_class=HTMLResponse)
+def archive_workbench(request: Request):
+    return templates.TemplateResponse(request, "archive.html", {"version": RULE_VERSION})
+
+
 @router.get("/api/health", tags=["服务"])
 def health():
     return {"status": "ready", "rules": RULE_VERSION}

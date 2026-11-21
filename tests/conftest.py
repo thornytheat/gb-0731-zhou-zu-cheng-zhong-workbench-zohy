@@ -26,7 +26,8 @@ def clean_result():
 
 @pytest.fixture
 def settings(tmp_path):
-    return Settings(tmp_path / "sources", tmp_path / "weigh.sqlite3")
+    return Settings(tmp_path / "sources", tmp_path / "weigh.sqlite3",
+                    tmp_path / "archive.sqlite3", tmp_path / "cold")
 
 
 @pytest.fixture

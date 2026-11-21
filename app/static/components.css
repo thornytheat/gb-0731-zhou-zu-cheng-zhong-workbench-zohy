@@ -112,3 +112,30 @@ h2 { font-size: 13px; letter-spacing: .035em; }
   .log-columns, .log-entry { grid-template-columns: 83px 32px minmax(0, 1fr); gap: 4px; }
   .log-entry .lamp { margin-right: 2px; }
 }
+
+/* M8 冷存归档工作台 */
+.archive-page { display: flex; flex-direction: column; gap: var(--gap); padding: var(--pad); }
+.archive-page h2 { font-size: 13px; margin: 0 0 10px; color: var(--ink); }
+.archive-page h3 { font-size: 12px; margin: 12px 0 6px; color: var(--ink-2); }
+.archive-page .panel { padding: var(--pad); }
+.toolbar { display: flex; gap: 8px; align-items: center; flex-wrap: nowrap; margin-bottom: 8px; }
+.toolbar.wrap { flex-wrap: wrap; }
+.toolbar label { font-size: 11px; color: var(--ink-3); display: inline-flex; align-items: center; gap: 5px; }
+.toolbar input { min-width: 0; width: auto; }
+.archive-page button { cursor: pointer; }
+.archive-page button.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.archive-page button.danger { color: var(--bad); border-color: #5a3a39; }
+.archive-page button.danger:hover { background: #2a1d1d; }
+.verdict { font-size: 11px; color: var(--accent); }
+.split .ledger { margin-bottom: 6px; }
+.nav-link { display: flex; align-items: center; gap: 9px; min-height: 33px; padding: 5px 8px;
+  color: var(--ink-2); font-size: 12px; text-decoration: none; border: 1px solid transparent; }
+.nav-link:hover { background: var(--panel-2); }
+.action-output { min-height: 40px; }
+.json-view { margin: 0; padding: 10px; max-height: 320px; overflow: auto; background: var(--rail);
+  border: 1px solid var(--line); border-radius: var(--radius-sm); font: 11px var(--mono);
+  color: var(--ink-2); white-space: pre-wrap; word-break: break-all; }
+.error-banner { margin: 0; padding: 8px 10px; color: var(--bad); background: #2a1d1d;
+  border: 1px solid #5a3a39; border-radius: var(--radius-sm); font-size: 12px; }
+#ledger-output .ledger tbody tr { cursor: pointer; }
+#holds-output, #events-output { margin-top: 10px; }
