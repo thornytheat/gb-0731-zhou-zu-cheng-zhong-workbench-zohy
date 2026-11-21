@@ -1,0 +1,24 @@
+<div class="telemetry">
+  <section class="panel log-panel" aria-labelledby="log-heading">
+    <div class="panel__head">
+      <h2 id="log-heading">触发日志</h2>
+      <div class="panel-controls">
+        <span class="follow-state" id="follow-state"><i class="lamp"></i><span>跟随中</span></span>
+        <button id="pause-log" class="btn btn--subtle" type="button" aria-pressed="false">暂停滚动</button>
+      </div>
+    </div>
+    <div class="log-columns" aria-hidden="true"><span>记录时间</span><span>级别</span><span>事件</span></div>
+    <ol class="log-stream" id="log-stream" tabindex="0" aria-label="批次触发日志">
+      <li class="empty" id="log-empty">运行样例后查看触发日志。</li>
+    </ol>
+    <div class="panel__foot"><span>批次事件 · 全部车次</span><span id="log-cursor">序号 —</span></div>
+  </section>
+  <section class="panel load-panel" aria-labelledby="load-heading">
+    <div class="panel__head">
+      <h2 id="load-heading">左右轮载</h2>
+      <label class="pass-field" for="vehicle">车次 <select id="vehicle" disabled><option>—</option></select></label>
+    </div>
+    <div id="load-chart" class="load-chart"><p class="empty">正在读取轮载。</p></div>
+    <div class="panel__foot" id="load-summary"><span>确认车轴</span><span>—</span></div>
+  </section>
+</div>

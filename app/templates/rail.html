@@ -1,0 +1,15 @@
+<aside class="rail">
+  <a class="brand" href="/" aria-label="轴组称重首页">
+    <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span>地磅稽核<small>WEIGH STATION</small></span>
+  </a>
+  <nav class="rail-nav" aria-label="称重模块">
+    <span class="nav-label">作业模块</span>
+    {% for id, label in modules %}
+    <button type="button" data-module="{{ id }}" aria-pressed="{{ 'true' if id == 'axles' else 'false' }}">
+      <span aria-hidden="true" class="nav-mark"></span>{{ label }}
+    </button>
+    {% endfor %}
+  </nav>
+  <div class="rail-foot"><span>规则版本</span><strong>{{ version }}</strong></div>
+</aside>

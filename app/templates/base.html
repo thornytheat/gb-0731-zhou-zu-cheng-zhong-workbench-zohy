@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#141819">
+  <title>轴组称重工作台</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/static/theme.css">
+  <link rel="stylesheet" href="/static/layout.css">
+  <link rel="stylesheet" href="/static/components.css">
+  <script type="module" src="/static/workbench.js"></script>
+</head>
+<body>
+  <div class="app">
+    {% include "rail.html" %}
+    <div class="work">
+      {% block work %}{% endblock %}
+      <footer class="statusbar">
+        <span><i class="lamp" id="service-lamp"></i><span id="service-state">正在连接</span></span>
+        <span>显示时间 UTC+08:00</span>
+        <a href="/docs">接口文档 ↗</a>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<header class="topbar">
+  <div class="heading">
+    <h1>轴组称重工作台</h1>
+    <span id="snapshot-state" class="snapshot-state"><i class="lamp"></i>读取样例</span>
+  </div>
+  <form class="actions" id="run-form">
+    <label class="sample-field" for="sample">数据源</label>
+    <select id="sample" name="sample">
+      {% for value, name in samples.items() %}<option value="{{ value }}">{{ name }}</option>{% endfor %}
+    </select>
+    <button class="btn btn--primary" id="run" type="submit">运行样例</button>
+    <button class="btn" id="rerun" type="button" disabled>重跑</button>
+    <a class="btn" id="export" aria-disabled="true">导出复核包</a>
+  </form>
+</header>

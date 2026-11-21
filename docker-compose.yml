@@ -1,0 +1,11 @@
+services:
+  app:
+    build: .
+    ports:
+      - "18420:18420"
+    environment:
+      WEIGH_DB: /srv/weigh/var/weigh.sqlite3
+    volumes:
+      - weighing-data:/srv/weigh/var
+volumes:
+  weighing-data:

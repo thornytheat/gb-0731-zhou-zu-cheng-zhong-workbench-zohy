@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block work %}
+{% include "controls.html" %}
+<main class="content" id="main">
+  {% include "metrics.html" %}
+  {% include "telemetry.html" %}
+  {% include "evidence.html" %}
+</main>
+{% endblock %}
